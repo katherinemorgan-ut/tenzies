@@ -1,2 +1,2 @@
 # tenzies
-The game of tenzies using React. 
+The game of tenzies using React principles. 
