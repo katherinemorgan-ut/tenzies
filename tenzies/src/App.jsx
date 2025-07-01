@@ -1,34 +1,39 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import Die from './components/Die.jsx'
+import RollButton from './components/RollButton.jsx';
+import { useState } from 'react'
+import { nanoid } from 'nanoid';
 
 function App() {
-  const [count, setCount] = useState(0)
+  
+  function getDiceObjects() {
+    let values = new Array(10).fill(1);
+    let valuesObject = values.map(x => ({
+      value: Math.floor(Math.random()*7*x), 
+      isHeld: false,
+      id: nanoid()}));
+    return valuesObject
+  }
+
+
+  let [ dieObjectArray, setdieObjectArray ] = useState(getDiceObjects())
+
+  let diceElements = dieObjectArray.map( dieObject => < Die key={dieObject.id} dieValue={dieObject.value} />)
+  
+  function rollDice() {
+    setdieObjectArray(getDiceObjects())
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <main>
+      <div className="flex-container">
+        {diceElements}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+      <br></br>
+      <br></br>
+      <br></br>
+      < RollButton onClick={rollDice} className="roll-dice" />
+    </main>
   )
 }
 
