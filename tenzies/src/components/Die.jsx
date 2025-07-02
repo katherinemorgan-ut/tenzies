@@ -1,6 +1,10 @@
 function Die(props) {
 
-    return <button type="button">
+    const styles = {
+        backgroundColor: props.isHeld ? "#59E391" : "white"
+    }
+
+    return <button style={styles} onClick={() => props.holdFunction(props.id)} >
         {props.dieValue}
     </button>
 }

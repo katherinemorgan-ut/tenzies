@@ -15,13 +15,33 @@ function App() {
     return valuesObject
   }
 
+  function hold(id) {
+   setdieObjectArray( prevDieObjectArray => 
+    (prevDieObjectArray.map( die => 
+      (die.id == id 
+        ? {...die, isHeld:!die.isHeld} 
+        : {...die}))))
+  }
+
 
   let [ dieObjectArray, setdieObjectArray ] = useState(getDiceObjects())
 
-  let diceElements = dieObjectArray.map( dieObject => < Die key={dieObject.id} dieValue={dieObject.value} />)
+  let diceElements = dieObjectArray.map( dieObject => < Die 
+    key={dieObject.id} 
+    holdFunction={hold} 
+    dieValue={dieObject.value} 
+    isHeld={dieObject.isHeld}
+    id={dieObject.id}
+    />)
+
   
   function rollDice() {
-    setdieObjectArray(getDiceObjects())
+    setdieObjectArray( prevDieObjectArray => prevDieObjectArray.map( 
+      die => (
+        die.isHeld == true ?
+        {...die} :
+        {...die, value: Math.floor(Math.random()*7)})
+    ))
   }
 
   return (
