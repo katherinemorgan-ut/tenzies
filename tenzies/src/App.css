@@ -54,3 +54,7 @@ button.roll-dice {
   border-radius: 6px;
   background-color: #5035FF;
 }
+
+button.dieIsHeld {
+  background-color: #59E391;
+}
